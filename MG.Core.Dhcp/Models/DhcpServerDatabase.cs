@@ -5,21 +5,21 @@ namespace MG.Core.PowerShell.Dhcp.Models
     public class DhcpServerDatabase : BaseResult
     {
         [CimProperty]
-        public uint BackupInterval { get; set; }
+        public uint BackupInterval { get; private set; }
 
         [CimProperty]
-        public string BackupPath { get; set; }
+        public string BackupPath { get; private set; }
 
         [CimProperty]
-        public uint CleanupInterval { get; set; }
+        public uint CleanupInterval { get; private set; }
 
         [CimProperty]
-        public string FileName { get; set; }
+        public string FileName { get; private set; }
 
         [CimProperty]
-        public bool LoggingEnabled { get; set; }
+        public bool LoggingEnabled { get; private set; }
 
         [CimProperty]
-        public bool RestoreFromBackup { get; set; }
+        public bool RestoreFromBackup { get; private set; }
     }
 }
