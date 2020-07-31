@@ -8,6 +8,7 @@ namespace MG.Core.PowerShell.Dhcp.Cmdlets
     public class BackupDhcpServer : DhcpServerCmdlet
     {
         #region FIELDS/CONSTANTS
+        protected override bool IsSetting => false;
         protected override string MethodName { get; set; } = "Backup";
 
         #endregion

@@ -7,6 +7,7 @@ namespace MG.Core.PowerShell.Dhcp.Cmdlets
     public class RestoreDhcpServer : DhcpServerCmdlet
     {
         #region FIELDS/CONSTANTS
+        protected override bool IsSetting => true;
         protected override string MethodName { get; set; } = "Restore";
 
         #endregion
@@ -28,6 +29,10 @@ namespace MG.Core.PowerShell.Dhcp.Cmdlets
         {
             base.AddParameter(this, x => x.Force, true);
             base.ProcessRecord();
+        }
+        protected override void EndProcessing()
+        {
+            base.WriteWarning("Please restart the DHCP server for the restored database to take effect.");
         }
 
         #endregion

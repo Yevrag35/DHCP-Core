@@ -1,4 +1,4 @@
-﻿using MG.Posh.Extensions.Shoulds;
+﻿using MG.Posh.Extensions.Bound;
 using Microsoft.Management.Infrastructure;
 using System;
 using System.Linq;
@@ -10,10 +10,9 @@ namespace MG.Core.PowerShell.Dhcp.Cmdlets
     {
         protected bool _isForcing;
         protected override string ClassName { get; set; } = "PS_DhcpServer";
-        protected override bool IsSetting => false;
 
         #region PARAMETERS
-        [Parameter(Mandatory = true, Position = 0)]
+        [Parameter(Mandatory = false, Position = 0)]
         public string Path { get; set; }
 
         #endregion
@@ -25,7 +24,9 @@ namespace MG.Core.PowerShell.Dhcp.Cmdlets
         {
             if (_isForcing || base.DefaultShouldProcess())
             {
-                base.AddParameters(this, x => x.Path);
+                if (this.ContainsParameter(x => x.Path))
+                    base.AddParameters(this, x => x.Path);
+
                 foreach (CimMethodResult result in base.ExecuteStaticMethod())
                 {
                     if (result?.ReturnValue != null && result?.ReturnValue?.Value != null && (uint)result.ReturnValue.Value != 0)
