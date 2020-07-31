@@ -20,10 +20,7 @@ namespace MG.Core.PowerShell.Dhcp.Cmdlets
         #endregion
 
         #region CMDLET PROCESSING
-        protected override void BeginProcessing()
-        {
-            base.BeginProcessing();
-        }
+        protected override void BeginProcessing() => base.BeginProcessing();
 
         protected override void ProcessRecord()
         {
