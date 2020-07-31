@@ -37,6 +37,9 @@ namespace MG.Core.PowerShell.Dhcp.Cmdlets
         public SwitchParameter RestoreFromBackup { get; set; }
 
         [Parameter(Mandatory = false)]
+        public SwitchParameter Force { get; set; }
+
+        [Parameter(Mandatory = false)]
         public SwitchParameter PassThru
         {
             get => _passThru;
@@ -55,8 +58,11 @@ namespace MG.Core.PowerShell.Dhcp.Cmdlets
 
             base.AddParameter(this, x => x.PassThru, true);
 
-            IEnumerable<CimMethodResult> results = base.ExecuteStaticMethod();
-            base.WriteResults<DhcpServerDatabase>(results, _passThru);
+            if (this.Force.ToBool() || base.DefaultShouldProcess())
+            {
+                IEnumerable<CimMethodResult> results = base.ExecuteStaticMethod();
+                base.WriteResults<DhcpServerDatabase>(results, _passThru);
+            }
         }
 
         #endregion

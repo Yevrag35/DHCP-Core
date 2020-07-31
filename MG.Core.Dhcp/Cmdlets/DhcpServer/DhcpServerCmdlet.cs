@@ -23,11 +23,7 @@ namespace MG.Core.PowerShell.Dhcp.Cmdlets
 
         protected override void ProcessRecord()
         {
-            string servers = string.Join(", ", base._backingSessions.Select(x => x.ComputerName));
-            if (string.IsNullOrWhiteSpace(servers))
-                servers = Environment.MachineName;
-
-            if (_isForcing || this.ShouldProcessFormat(this.MethodName, "Server: {0}", servers))
+            if (_isForcing || base.DefaultShouldProcess())
             {
                 base.AddParameters(this, x => x.Path);
                 foreach (CimMethodResult result in base.ExecuteStaticMethod())

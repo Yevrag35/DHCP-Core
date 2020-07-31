@@ -71,6 +71,21 @@ namespace MG.Core.PowerShell.Dhcp.Cmdlets
 
         #region CMDLET HELPER METHODS
 
+        protected string GetListOfComputerNames()
+        {
+            string servers = string.Join(", ", _backingSessions.Select(x => x.ComputerName));
+            if (string.IsNullOrWhiteSpace(servers))
+                servers = Environment.MachineName;
+
+            return servers;
+        }
+
+        protected bool DefaultShouldProcess()
+        {
+            string servers = this.GetListOfComputerNames();
+            return this.ShouldProcessFormat(this.MethodName, "Servers: {0}", servers);
+        }
+
         #region WRITE ERROR
         protected void WriteError(uint errorCode) => this.WriteError("Returned an error code of {0}", errorCode);
         protected void WriteError(string messageFormat, params object[] messageArgs)
